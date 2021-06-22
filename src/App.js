@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'
+import Form from './component/Form/Form'
+import Output from './component/Output/Output'
+import { URL } from './config'
 import './App.css';
 
-function App() {
+export default function App() {
+  const [data, setData] = React.useState('erlan 909')
+  const [val, setVal] = React.useState(null)
+
+  const searchByGit = async (event) =>{
+    event.preventDefault()
+    let url = URL+val
+    const res = await fetch(url)
+    const req = await res.json()
+    console.log(req);
+    setData(req)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+
+      <Form
+      val={val}
+      setVal={setVal}
+      search={searchByGit}
+      />
+      <Output data={data}/>
+
     </div>
   );
 }
 
-export default App;
